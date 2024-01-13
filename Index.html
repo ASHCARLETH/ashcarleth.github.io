@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="google-adsense-account" content="ca-pub-3352955441938145">
+    <title>Juego de Adivinanzas</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+            background: url('https://stardate.org/sites/default/files/images/gallery/m101_spiral_galaxy.jpg') center/cover no-repeat fixed; 
+            transition: background 3s;
+        }
+        #container { 
+            text-align: center;
+            background-color: rgba(30, 65, 110, 0.623);
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+        h1 {
+            color: #ffffff;
+        }
+
+        p {
+            color: #ffffff;
+        }
+
+        input {
+            margin-top: 5px;
+            padding: 5px;
+            font-size: 15px;
+            color: rgba(47, 174, 248, 0.329);
+        }
+
+        button {
+            padding: 6.3px 15px;
+            font-size: 15px;
+            background-color: #00ccff;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #f374a9;
+        }
+
+        #mensaje {
+            color: #ff9900;
+            font-weight: bold;
+        }
+
+        footer {
+            text-align: center;
+            padding: 10px;
+            background-color: rgba(3, 61, 99, 0.651);
+            color: #fff;
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            font-size: 11px;
+        }
+
+        #pregunta{
+            font-style: normal;
+            color: white;
+            font-size: 12px;
+            text-decoration: solid;
+        }
+
+        #Respuesta {
+            font-style: normal;
+            color: rgba(0, 0, 0, 0.705);
+        }
+
+    </style>  
+</head>
+<body>
+    <div id="container">
+        <h1>Juego de Adivinanzas</h1>
+        <p>Responde a las siguientes preguntas correctamente:</p>
+        <div id="pregunta"></div>
+        <input type="text" id="respuesta" placeholder="Escribe tu respuesta">
+        <button onclick="verificarRespuesta()">Verificar</button>
+        <p id="mensaje"></p>
+    </div>
+
+    <footer>
+        &copy; 2023 Ashly Umanzor. Todos los derechos reservados.
+    </footer>
+
+    <script>
+        const preguntas = [
+            {
+                pregunta: "¿Cuál es el pais mas grande del mundo?",
+                respuesta: "Rusia"
+            },
+            {
+                pregunta: "¿Cuál es el lugar más frío de la tierra?",
+                respuesta: "La Antartida"
+            },
+            {
+                pregunta: "¿En qué continente está Ecuador?",
+                respuesta: "Continente Americano"
+            },
+            {
+                pregunta: "¿Qué tipo de animal es la ballena?",
+                respuesta: "Mamifero"
+            },
+            {
+                pregunta: "¿Quién es el autor de el Quijote?",
+                respuesta: "Miguel De Cervantes"
+            },
+            {
+                pregunta: "¿Cuál es el pais mas grande del mundo?",
+                respuesta: "Rusia"
+            },
+            {
+                pregunta: "¿Quién es el padre del psicoanálisis?",
+                respuesta: "Sigmund Freud"
+            },
+            {
+                pregunta: "¿Cuál es el país con más Premios Nobel?",
+                respuesta: "Estados Unidos"
+            },
+            {
+                pregunta: "¿En qué año se celebró la primera guerra mundial?",
+                respuesta: "1914"
+            },
+            {
+                pregunta: "¿En qué año inicio la segunda guerra mundial?",
+                respuesta: "1939"
+            },
+            {
+                pregunta: "¿Qué país tiene de capital Minsk?",
+                respuesta: "Bielorrusia"
+            },
+            {
+                pregunta: "¿Cuál es el la capital de Mongolia?",
+                respuesta: "Ulan Bator"
+            },
+            {
+                pregunta: "¿En que continente esta Reino Unido?",
+                respuesta: "Continente Europeo"
+            },
+            {
+                pregunta: "¿En qué parte del mundo se encuentra Stongange?",
+                respuesta: "Reino Unido"
+            },
+            {
+                pregunta: "¿Qué país tiene de capital Helsinki?",
+                respuesta: "Finlandia"
+            },
+            {
+                pregunta: "¿Qué cantidad de huesos hay en el cuerpo humano?",
+                respuesta: "206"
+            },
+            {
+                pregunta: "¿Qué son los humanos: omnivoros, hervivoros o carnivoros?",
+                respuesta: "Omnivoros"
+            },
+            {
+                pregunta: "¿Qué año llego Cristobal Colon a America?",
+                respuesta: "1492"
+            },
+            {
+                pregunta: "¿Cuál es el disco mas vendido de la historia?",
+                respuesta: "Thriller de Michael Jackson"
+            },
+            {
+                pregunta: "¿Qué país significa FIFA?",
+                respuesta: "Federation Internationale de Football Association"
+            },
+            {
+                pregunta: "¿Qué producto cultiva en gran catidad Guatemala?",
+                respuesta: "El cafe"
+            },
+            {
+                pregunta: "¿Qué deporte practicaba Michael Jordan?",
+                respuesta: "Baloncesto"
+            },
+            {
+                pregunta: "¿Qué país tiene forma de bota?",
+                respuesta: "Italia"
+            },
+            {
+                pregunta: "¿Qué rama de la biologia estudia a los animales?",
+                respuesta: "La Zoologia"
+            },
+            {
+                pregunta: "¿Qué instrumento optico permite ver a los astros de cerca?",
+                respuesta: "El telescopio"
+            },
+            {
+                pregunta: "¿Qué es mas pequeño: un atomo o una molecula?",
+                respuesta: "Un Atomo"
+            },
+            {
+                pregunta: "¿Qué grasas hacen tan saludable el aceite de oliva?",
+                respuesta: "Las grasas monoinsaturadas"
+            },
+            {
+                pregunta: "¿Qué era el concorde?",
+                respuesta: "Un avion supersonico"
+            },
+            {
+                pregunta: "¿Quién gano el mundial 2014?",
+                respuesta: "Alemania"
+            },
+            {
+                pregunta: "¿Quién Traiciono a Jesus?",
+                respuesta: "Judas"
+            },
+            {
+                pregunta: "¿Quién es el protagonista de la pelicula Rocky?",
+                respuesta: "Sylvester Stallone"
+            }
+        ];
+
+        let preguntaActual = 0;
+
+        function mostrarPregunta() {
+            document.getElementById("pregunta").innerHTML = preguntas[preguntaActual].pregunta;
+        }
+
+        function verificarRespuesta() {
+            const respuesta = document.getElementById("respuesta").value;
+            if (respuesta.toLowerCase() === preguntas[preguntaActual].respuesta.toLowerCase()) {
+                document.getElementById("mensaje").textContent = "¡Correcto!";
+            } else {
+                document.getElementById("mensaje").textContent = "Incorrecto. Inténtalo de nuevo.";
+            }
+
+            // Funcion para pasar a la siguiente pregunta
+            preguntaActual++;
+            if (preguntaActual < preguntas.length) {
+                mostrarPregunta();
+                document.getElementById("respuesta").value = "";
+            } else {
+                document.getElementById("pregunta").textContent = "¡Fin del juego!";
+                document.getElementById("respuesta").style.display = "none";
+                document.getElementById("mensaje").textContent = "";
+            }
+        }
+
+        mostrarPregunta();
+    </script>
+
+    <script>
+        const backgrounds = ['https://images.pexels.com/photos/2114014/pexels-photo-2114014.jpeg?cs=srgb&dl=pexels-magda-ehlers-2114014.jpg&fm=jpg', 
+        'https://images7.alphacoders.com/133/1332041.png', 
+        'https://www.fundacionaquae.org/wp-content/uploads/2015/02/cummulus.jpg'];
+        let currentBackground = 0;
+
+        function changeBackground() {
+            currentBackground = (currentBackground + 1) % backgrounds.length;
+            document.body.style.background = `url('${backgrounds[currentBackground]}') center/cover no-repeat fixed`;
+        }
+
+        setInterval(changeBackground, 5000);
+    </script>
+</body>
+</html> 
